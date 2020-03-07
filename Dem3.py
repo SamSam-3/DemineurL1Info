@@ -2,7 +2,6 @@ from biblio import *
 from random import *
 from tkinter import *
 
-# - Faire 2eme plateau case devoile/pas devoile
 # - Separer partie vue/partie algo 
 
 
@@ -18,19 +17,24 @@ can.pack(side="bottom")
 
 oui = PhotoImage(file="button.png")
 
+nbrBomb = 25
+total = n*p
+
 img=[]
+bomb=[]
 
 def generePlateau(r):  
 
     Ind=[]
 
-    for i in range(25):
+    for i in range(nbrBomb):
         x = randint(0,9)
         y = randint(0,9)
     ## Recuperation indices des bombes
         if r[x][y]!="X":
           r[x][y]="X"
           Ind.append([x,y])
+          bomb.append((x*10)+y)
         else:
             i-=1
 
@@ -49,7 +53,12 @@ def generePlateau(r):
 #devoile la case cliqué
 def devoile(event):
     i,j = int(event.x/70),int(event.y/70)
-    can.delete(img[(j*10)+i])
+    t = (j*10)+i
+    if(t in bomb):
+        for h in range(total):
+            can.delete(img[h])
+    else:
+        can.delete(img[t])    
 
 #recouvre le plateau pour cacher les indices
 def couverture():
@@ -57,8 +66,8 @@ def couverture():
     y=0
     s=0
 
-    for i in range(10):
-        for j in range(10):
+    for i in range(n):
+        for j in range(p):
             img.append("")
             img[s] = can.create_image(x+35,y+35,image=oui)
             s+=1
@@ -77,8 +86,8 @@ def Game(r):
     x=0
     y=0
 
-    for i in range(10):
-        for j in range(10):
+    for i in range(n):
+        for j in range(p):
             can.create_rectangle((x,y),(x+70,y+70), fill="gray",outline='black')
             if r[i][j]==1:
                 can.create_text((x+35,y+35), text=r[i][j], font=("arial",16,"italic"), fill="white")
