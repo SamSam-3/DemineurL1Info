@@ -1,2 +1,3 @@
-# Dans le dossier Demineur_v3
-Le fichier Dem3.py necessite le fichier "button.png" et biblio.py pour fonctionner correctement.
+# Nouvelle Version "Dem4.py"
+
+La nouvelle version se trouve dans le fichier zip "ProjetPython_CASTRE_SAMUEL.zip".
